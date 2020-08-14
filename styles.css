@@ -5,6 +5,10 @@ html {
     font-size: 10px;
 }
 
+#title {
+    font-size: 2rem;
+}
+
 #calculator {
     margin: 0 auto;
     display: flex;
@@ -16,12 +20,14 @@ html {
 #screen-area {
     height: 50px;
     width: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 70px;
 }
 
-#screen {
+input {
     height: 100%;
     width: 100%;
+    text-align: right;
+    font-size: 4rem;
 }
 
 #button-grid {
