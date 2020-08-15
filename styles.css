@@ -20,7 +20,7 @@ html {
 #screen-area {
     height: 50px;
     width: 100%;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
 }
 
 input {
@@ -59,7 +59,7 @@ input {
     grid-row-gap: 10px;
 }
 
-.button {
+button {
     font-size: 4rem;
     font-weight: bold;
 }
