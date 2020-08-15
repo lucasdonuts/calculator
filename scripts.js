@@ -5,40 +5,71 @@ let operator = '';
 let cleanSlate = true;
 let multiOp = false;
 let equalsPressed = false;
+let decimal = false;
+
+function removeExcessZeroes(answer) {
+    array = answer.split("");
+    console.log(array.length);
+    for (let i = array.length - 1; i > 0; i--){
+        if(array[i] === '0' || array[i] === '.'){
+            array.pop();
+            console.log(array);
+        }
+        else {
+            return array.join('');
+        }
+    }
+}
 
 function add(num1, num2) {
-    return num1 + num2;
+    let answer = num1 + num2;
+    if(answer % 1 === 0){
+        return answer;
+    } else {
+        return removeExcessZeroes(answer.toFixed(11));
+    }
 };
 
 function subtract(num1, num2) {
-    return num1 - num2;
+    let answer = num1 - num2;
+    if(answer % 1 === 0){
+        return answer;
+    } else {
+        return removeExcessZeroes(answer.toFixed(11));
+    }
 };
 
 function multiply(num1, num2) {
-    return num1 * num2;
+    let answer = num1 * num2;
+    if(answer % 1 === 0){
+        return answer;
+    } else {
+        return removeExcessZeroes(answer.toFixed(11));
+    }
 };
 
 function divide (num1, num2) {
     if(num2 == 0){
         return "Does not compute";
     }
-    return num1 / num2;
+    let answer = num1 / num2;
+    if(answer % 1 === 0){
+        return answer;
+    } else {
+        return removeExcessZeroes(answer.toFixed(11));
+    }
 };
 
 function operate(num1, operator, num2) {
     switch(operator) {
         case '+':
-            return Number(add(num1, num2));
-            break;
+            return add(num1, num2);
         case '-':
-            return Number(subtract(num1, num2));
-            break;
+            return subtract(num1, num2);
         case 'x':
-            return Number(multiply(num1, num2));
-            break;
+            return multiply(num1, num2);
         case '/':
-            return Number(divide(num1, num2));
-            break;
+            return divide(num1, num2);
     };
 };
 
@@ -74,12 +105,17 @@ function checkButton(key) {
         if(screen.value == ''){
             screen.value = '0.';
         } else {
-            screen.value += key.id;
+            if(!decimal){
+                screen.value += key.id;
+                decimal = true;
+            } else {
+                return;
+            }
         }
     }
 
     if(isOperator(key)) {
-        console.log(num1, num2, operator);
+        decimal = false;
         cleanSlate = false;
         if(equalsPressed) {
             multiOp = false;
@@ -95,10 +131,16 @@ function checkButton(key) {
             num1 = operate(num1, operator, num2); ///
             screen.value = num1;
             operator = key.id;
+            num2 = 0;
         }
+        console.log("num1 = " + num1 + " num2 = " + num2 + " operator = " + operator);
     }
 
     if(isEquals(key)) {
+        if(num1 == 0 || operator == '') {
+            return;
+        }
+        decimal = false;
         num1 = Number(num1);
         num2 = Number(num2);
         screen.value = operate(num1, operator, num2);
@@ -115,6 +157,7 @@ function checkButton(key) {
         cleanSlate = true;
         multiOp = false;
         equalsPressed = false;
+        decimal = false;
     }
 }
 
