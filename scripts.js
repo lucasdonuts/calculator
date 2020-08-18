@@ -9,7 +9,6 @@ let decimal = false;
 
 function removeExcessZeroes(answer) {
     array = answer.split("");
-    console.log(array.length);
     for (let i = array.length - 1; i > 0; i--){
         if(array[i] === '0' || array[i] === '.'){
             array.pop();
@@ -19,6 +18,13 @@ function removeExcessZeroes(answer) {
             return array.join('');
         }
     }
+}
+
+function removeCharacter(input) {
+    array = input.split("");
+    array.pop();
+    array = array.join('');
+    return array;
 }
 
 function add(num1, num2) {
@@ -98,7 +104,6 @@ function checkButton(key) {
             num2 = screen.value;
             
         }
-        console.log("num1 = " + num1 + " num2 = " + num2 + " operator = " + operator);
     }
 
     if(isDecimal(key)) {
@@ -133,7 +138,6 @@ function checkButton(key) {
             operator = key.id;
             num2 = 0;
         }
-        console.log("num1 = " + num1 + " num2 = " + num2 + " operator = " + operator);
     }
 
     if(isEquals(key)) {
@@ -147,7 +151,6 @@ function checkButton(key) {
         num1 = Number(screen.value);
         num2 = 0;
         equalsPressed = true;
-        console.log(num1, num2, operator);
     }
 
     if(isClear(key)) {
@@ -158,6 +161,15 @@ function checkButton(key) {
         multiOp = false;
         equalsPressed = false;
         decimal = false;
+    }
+
+    if(isDelete(key)) {
+        screen.value = removeCharacter(screen.value);
+        if(cleanSlate) {
+            num1 = screen.value;
+        } else {
+            num2 = screen.value;
+        }
     }
 }
 
@@ -179,6 +191,10 @@ function isEquals(key) {
 
 function isClear(key) {
     if (key.classList.contains('clear')) return true;
+}
+
+function isDelete(key) {
+    if(key.classList.contains('delete')) return true;
 }
 
 buttons.addEventListener('click', e => {
